@@ -135,7 +135,7 @@ export const FormListaProductos = () => {
                 sessionStorage.setItem(`Producto ${productoVenta.codigo_interno}`, JSON.stringify(infoProducto));  
                 Swal.fire({
                     icon: 'success',
-                    title: 'Exito',
+                    title: 'Éxito',
                     text: 'El producto se agregó a la venta.'
                 });
             }
