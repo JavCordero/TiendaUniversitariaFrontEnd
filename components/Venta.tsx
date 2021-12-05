@@ -139,18 +139,50 @@ export const Venta = (): JSX.Element =>{
     async function realizarVenta(){
 
         const resp = await registrarVenta(productos);
+        let productosMalos = false;
+        let stringMalito = "Se detectaron inconsistencias en el stock de los siguientes productos: "
+        let stringBueno = "Estos son los productos que se pudieron registrar en la venta";
 
         console.log(resp);
         sessionStorage.clear();
 
-        Swal.fire({
-            icon: 'success',
-            title: 'Venta Exitosa',
-            text: 'La venta se ha realizado con éxito.'
-        }).then(() => {
-            Router.push("/Tienda/Perfil");
+        resp.forEach((respuesta : any) => {
+            const respuestaNegativa = respuesta.message.includes("No");
+            if(respuestaNegativa){
+                productosMalos = true;
+                stringMalito = `${stringMalito} ${respuesta.nombre}. `;
+            }
+            else{
+                stringBueno = `${stringBueno} ${respuesta.nombre}. `;
+            }
         });
-
+        
+        if(productosMalos){
+            Swal.fire({
+                icon: 'warning',
+                title: 'Se detectaron inconsistencias',
+                text: stringMalito
+            }).then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Venta Exitosa',
+                    text: stringBueno
+                }).then(() => {
+                    Router.push("/Tienda/Perfil");
+                });
+            });
+        }
+        
+        else{
+            Swal.fire({
+                icon: 'success',
+                title: 'Venta Exitosa',
+                text: 'La venta se ha realizado con éxito.'
+            }).then(() => {
+                Router.push("/Tienda/Perfil");
+            });
+        }
+        
     }
 
     //si se elimina un producto se simula el efecto para re-renderizarlo
