@@ -93,7 +93,7 @@ export const FormAddUsuario = (): JSX.Element => {
                     <div id={(width > limite)? "register_user" : "register_user_responsive"}>  
                       <div className="col-12">
                         <label htmlFor="nombre" id="text">Nombre:</label>
-                        <Field className="form-control" name="nombre" type="text" placeholder="Nombre"/> 
+                        <Field className="form-control rounded-pill" name="nombre" type="text" placeholder="Nombre"/> 
                         <div id="fila_unidad">
                           <div>
                             <ErrorMessage name="nombre" component="span" className="form__error"/>
@@ -104,7 +104,7 @@ export const FormAddUsuario = (): JSX.Element => {
                     <div id={(width > limite)? "register_user" : "register_user_responsive"}>
                       <div className="col-12">
                         <label htmlFor="apellido" id="text">Apellido:</label>
-                        <Field className="form-control" name="apellido" type="text" placeholder="Apellido"/>
+                        <Field className="form-control rounded-pill" name="apellido" type="text" placeholder="Apellido"/>
                         <div id="fila_unidad">
                           <div>
                             <ErrorMessage name="apellido" component="span" className="form__error"/>
@@ -117,7 +117,7 @@ export const FormAddUsuario = (): JSX.Element => {
                     <div id={(width > limite)? "register_user" : "register_user_responsive"}>  
                       <div className="col-12">
                         <label htmlFor="email" id="text">Correo Electrónico:</label>
-                        <Field className="form-control" name="email" type="text" placeholder="correo@gmail.com"/>
+                        <Field className="form-control rounded-pill" name="email" type="text" placeholder="correo@gmail.com"/>
                         <div id="fila_unidad">  
                           <div>
                             <ErrorMessage name="email" component="span" className="form__error"/>
@@ -128,7 +128,7 @@ export const FormAddUsuario = (): JSX.Element => {
                     <div id={(width > limite)? "register_user" : "register_user_responsive"}>
                       <div className="col-12">
                         <label id="text">Rol:</label>
-                        <Field as="select" name="rol" className="form-control" placeholder="Seleccione un rol">
+                        <Field as="select" name="rol" className="form-control rounded-pill" placeholder="Seleccione un rol">
                           <option>Seleccione un rol</option>
                           <option value="administrador">Administrador</option>
                           <option value="vendedor">Vendedor</option>
@@ -143,7 +143,7 @@ export const FormAddUsuario = (): JSX.Element => {
                     <div id={(width > limite)? "register_user" : "register_user_responsive"}>     
                       <div className="col-12">
                         <label htmlFor="contrasenia" id="text">Contraseña:</label>
-                        <Field className="form-control" name="contrasenia" type="password" placeholder="********"/>
+                        <Field className="form-control rounded-pill" name="contrasenia" type="password" placeholder="********"/>
                         <div id="fila_unidad">  
                           <div>
                             <ErrorMessage name="contrasenia" component="span" className="form__error"/>
@@ -154,7 +154,7 @@ export const FormAddUsuario = (): JSX.Element => {
                     <div id={(width > limite)? "register_user" : "register_user_responsive"}>
                       <div className="col-12">
                         <label htmlFor="confirmContrasenia" id="text">Confirmar Contraseña:</label>
-                        <Field className="form-control" name="confirmContrasenia" type="password" placeholder="********"/>  
+                        <Field className="form-control rounded-pill" name="confirmContrasenia" type="password" placeholder="********"/>  
                         <div id="fila_unidad">
                           <div>
                             <ErrorMessage name="confirmContrasenia" component="span" className="form__error"/>

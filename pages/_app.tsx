@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app'
 import AuthProvider from '../contexts/AuthContext';
 
-import "../styles/prueba.css";
+import "../styles/tiendaUniversitariaEstilos.css";
 import "../styles/sideBarMenu.scss";
 import "../styles/SideBarMenuItemView.scss";
 import "../styles/login/login.scss";

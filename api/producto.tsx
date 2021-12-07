@@ -17,9 +17,82 @@ export const getCategory = async (categoria: string) => {
    return data;
 }
 
-export const getProductos = async () => {
-   const url = `${API_PATH}/productos`;
-   const params = {
+export const getIdentificacion= async()=> {
+   const url= `${API_PATH}/identificacion-productos/`;
+   const params= {
+      method: "GET",
+      headers: {
+         "Content-Type": "application/json"
+      },
+   }
+   const res= await fetch(url, params);
+   const data= await res.json();
+   console.log(data);
+   return data;
+}
+
+export const getProductosEspecifico= async(id: string)=> {
+
+   const url= `${API_PATH}/productos/${id}`;
+   const params= {
+      method: "GET",
+      headers: {
+         "Content-Type": "application/json",
+         Authorization: `Bearer ${getToken()}`
+      },
+   }
+   const res= await fetch(url, params);
+   const data= await res.json();
+   console.log(data);
+   return data;
+}
+
+export const updateProducto= async(id: string, rebajaMerma: string, aumento: string)=> {
+
+   // Obtiene el producto
+   const producto = await getProductosEspecifico(id);
+   var cantidadActual = producto.producto.cantidad;
+
+   if(rebajaMerma == "0" && aumento != "0"){
+      cantidadActual = cantidadActual + parseInt(aumento);
+   }
+   if(rebajaMerma != "0" && aumento == "0"){
+      var rebaja = cantidadActual - parseInt(rebajaMerma);
+
+      if (rebaja < 0){
+         return "Rebaja invalida";
+      }else{
+         cantidadActual= rebaja; 
+      }
+   }
+   console.log()
+   const url= `${API_PATH}/productos/${id}`;
+   const params= {
+      method: "PUT",
+      headers: {
+         "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+         nombre: producto.producto.nombre,
+         descripcion: producto.producto.descripcion,
+         codigo_interno: producto.producto.codigo_interno,
+         codigo_barra: producto.producto.codigo_barra,
+         categoria: producto.producto.categoria,
+         imagen: "",
+         precio: parseInt(producto.producto.precio),
+         cantidad: parseInt(cantidadActual),
+         stock_critico: parseInt(producto.producto.stock_critico),
+      })
+   }
+   const res= await fetch(url, params);
+   const data= await res.json();
+   console.log(data);
+   return data;
+}
+
+export const getProductos= async()=> {
+   const url= `${API_PATH}/productos`;
+   const params= {
       method: "GET",
       headers: {
          "Content-Type": "application/json",

@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
-import { HeaderPerfil } from '../../components/HeaderPerfil';
+import React from 'react'
+import { Venta } from '../../components/Venta';
 
 const RealizarVenta= ()=> {
    return(
       <>
-      <HeaderPerfil/>
-      <h1>Realizar Venta</h1>
+         <Venta/>
       </>
    );
 }

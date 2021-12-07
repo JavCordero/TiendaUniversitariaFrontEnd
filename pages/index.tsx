@@ -60,7 +60,7 @@ const Home= ()=> {
          setAlerta(true);
          Swal.fire({
             icon: 'error',
-            title: 'Oops...',
+            title: 'Acceso Denegado',
             text: 'Datos inválidos al iniciar sesión, intente de nuevo.'
          })
       }

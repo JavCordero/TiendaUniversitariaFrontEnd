@@ -79,6 +79,7 @@ export default function AuthProvider({children}:any){
          const response= await logoutAPI();
          clearToken();
          setUser(null);
+         sessionStorage.clear();
          return true;
       }catch(error){
          console.log(`ERROR: ${error}`);

@@ -81,4 +81,16 @@
     background-color: #003057 !important;
     color: #FFF;
     border-color: #003057 !important;
-  }
+}
+
+#boton_cancelar{
+    background-color: #da291c !important;
+    color: #FFF;
+    border-color: #da291c !important;
+}
+
+#boton_notificacion{
+    background-color: #003057 !important;
+    color: #FFF;
+    border-color: #003057!important;
+}

@@ -11,8 +11,13 @@ export const Authenticator= ({children}: any)=> {
    const {user, isAuthenticated}= useAuth(); 
    const Router = useRouter();
 
-   const isProtected= children.props.protected;
-   const permissions= children.props.permissions;
+   let isProtected= children.props.protected;
+   let permissions= children.props.permissions;
+
+   if(children.type.name=="ModificarProducto"){
+      isProtected= true;
+      permissions= ["administrador","vendedor"];
+   }
 
    if(isProtected){ // pagina privada
       if(isAuthenticated()){ // credenciales de usuario
