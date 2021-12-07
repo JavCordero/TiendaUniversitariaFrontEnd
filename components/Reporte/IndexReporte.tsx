@@ -51,7 +51,7 @@ const IndexReporte = () => {
 
     return (
         <>
-            <div className="container-fluid" id="contenedor" style={{ width: width, height: height - 100, marginLeft: '0' }}>
+            <div className="container-fluid" id="contenedor" style={{ width: width, height: 100, marginLeft: '0' }}>
                 <div className="col" style={{ paddingLeft: '0', paddingRight: '0', paddingTop: '50px', height: '20px' }}></div>
                 <div className="container-fluid" id="contenedor_lista" style={{ height: width > limite ? '50px' : '100px', width: '100%', maxWidth: '1470px', marginLeft: '0', marginRight: '0' }}>
                     <div style={{ height: '50px', width: ((width * 0.7)), position: 'relative', marginLeft: (width * 0.15) + scrollPosition - (55 / 2), marginRight: (width * 0.15) + 55, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -67,22 +67,22 @@ const IndexReporte = () => {
                         </div>
                     </div>
                 </div>
-                {select === "1" &&
-                    <VentaUsuario width={width} height={height} scrollPosition={scrollPosition} limite={limite} />
-                }
-                {select === "2" &&
-                    <Inventario width={width} height={height} scrollPosition={scrollPosition} limite={limite} />
-                }
-                {select === "3" &&
-                    <IngresoProducto width={width} height={height} scrollPosition={scrollPosition} limite={limite} />
-                }
-                {select === "4" &&
-                    <Rotacion width={width} height={height} scrollPosition={scrollPosition} limite={limite} />
-                }
-                {select === "5" &&
-                    <StockCritico width={width} height={height} scrollPosition={scrollPosition} limite={limite} />
-                }
             </div>
+            {select === "1" &&
+                <VentaUsuario width={width} height={height} scrollPosition={scrollPosition} limite={limite} />
+            }
+            {select === "2" &&
+                <Inventario width={width} height={height} scrollPosition={scrollPosition} limite={limite} />
+            }
+            {select === "3" &&
+                <IngresoProducto width={width} height={height} scrollPosition={scrollPosition} limite={limite} />
+            }
+            {select === "4" &&
+                <Rotacion width={width} height={height} scrollPosition={scrollPosition} limite={limite} />
+            }
+            {select === "5" &&
+                <StockCritico width={width} height={height} scrollPosition={scrollPosition} limite={limite} />
+            }
         </>
     )
 }

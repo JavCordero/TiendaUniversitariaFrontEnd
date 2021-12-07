@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getProductos } from '../../api/producto';
+import { stringToDateToString } from '../../helpers/helper';
 
 const StockCritico = ({ width, height, scrollPosition, limite }: any) => {
 
@@ -10,11 +11,13 @@ const StockCritico = ({ width, height, scrollPosition, limite }: any) => {
         const resp: any[] = Array.of(data.json);
         var newProduct = [{ fecha: "", nombre: "", cantidad: "" }];
         for (var i = 0; i < data.productos.length; i++) {
-            newProduct.push({
-                fecha: data.productos[i].fecha,
-                nombre: data.productos[i].nombre,
-                cantidad: data.productos[i].cantidad
-            });
+            if (data.productos[i].cantidad <= data.productos[i].stock_critico) {
+                newProduct.push({
+                    fecha: stringToDateToString(data.productos[i].fecha_notificacion),
+                    nombre: data.productos[i].nombre,
+                    cantidad: data.productos[i].cantidad
+                });
+            };
         }
         setAlgo(newProduct);
         setMainRecipesShown(newProduct);

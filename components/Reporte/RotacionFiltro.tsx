@@ -103,6 +103,10 @@ const RotacionFiltro = ({ width, height, scrollPosition, limite, filtroValor }: 
         font: {
           size: 20,
         },
+        padding: {
+          top: 5,
+          bottom: 30,
+        },
       },
     },
   };
@@ -116,6 +120,10 @@ const RotacionFiltro = ({ width, height, scrollPosition, limite, filtroValor }: 
         font: {
           size: 20,
         },
+        padding: {
+          top: 5,
+          bottom: 30,
+        },
       },
     },
   };
@@ -128,6 +136,10 @@ const RotacionFiltro = ({ width, height, scrollPosition, limite, filtroValor }: 
         text: "Productos menos vendidos " + mayusculaPrimeraLetra(filtro),
         font: {
           size: 20,
+        },
+        padding: {
+          top: 5,
+          bottom: 30,
         },
       },
     },

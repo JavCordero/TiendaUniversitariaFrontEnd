@@ -110,6 +110,10 @@ const VentaUsuarioFiltro = ({ width, height, scrollPosition, limite, filtroValor
                 font: {
                     size: 20,
                 },
+                padding: {
+                    top: 5,
+                    bottom: 30,
+                },
             },
         },
     };
