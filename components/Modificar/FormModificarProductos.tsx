@@ -53,42 +53,75 @@ export const FormModificarProductos = (): JSX.Element => {
   console.log(aumento+" ----"+rebajaMerma) */
 
   const onSubmit = async (values: FormValues) => {
-    try{
-      const resp = await updateProducto(String(codigo_interno),String(rebajaMerma),String(aumento));
-      console.log(resp);
-        if(resp.message == "Actualizado exitosamente"){
-          
-          Swal.fire({
-            text: 'El producto se ha modificado correctamente.',
-            title: String(nombre),
-            icon: 'success'
-          })
-          .then(function() {
-            window.location.href = "/Tienda/ListaProductos";
-        });
-  
-        } else {
-          if(resp.message == "Error de validacion"){
-            Swal.fire({
-              icon: 'error',
-              text: 'El producto no se ha podido modificar, intente de nuevo.'
-            })
-          } else {
-            if(resp == "Rebaja invalida"){
-              Swal.fire({
-                icon: 'error',
-                title: 'Rebaja inválida',
-                text: 'El producto no se ha podido modificar, intente de nuevo.'
-              })
-            }
-          }
-        }
-      } catch(error: any){
+
+    const select = (document.getElementById("exampleFormControlSelect1") as HTMLSelectElement).value;
+
+    if(select == "Seleccione una opción"){
+      Swal.fire({
+        icon: 'error',
+        text: 'No ha ingresado ninguna opción, intente de nuevo.'
+      })
+    }
+    else{
+      if(rebajaMerma == 0 && aumento == 0){
         Swal.fire({
-          icon: 'error',
-          text: 'El producto no se ha podido modificar, intente de nuevo.'
+          icon: 'warning',
+          text: 'La cantidad a aumentar/disminuir es 0.'
         })
       }
+      else{
+        Swal.fire({
+          title: 'Confirmar Cambio',
+          text: `¿Está seguro que quiere agregar modificar la cantidad del producto ${nombre}?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '¡Sí!',
+          cancelButtonText: '¡No!',
+          showLoaderOnConfirm: true,
+          preConfirm: async () => {
+            try{
+              const resp = await updateProducto(String(codigo_interno),String(rebajaMerma),String(aumento));
+              console.log(resp);
+                if(resp.message == "Actualizado exitosamente"){
+                  
+                  Swal.fire({
+                    text: 'El producto se ha modificado correctamente.',
+                    title: String(nombre),
+                    icon: 'success'
+                  })
+                  .then(function() {
+                    window.location.href = "/Tienda/ListaProductos";
+                });
+          
+                } else {
+                  if(resp.message == "Error de validacion"){
+                    Swal.fire({
+                      icon: 'error',
+                      text: 'El producto no se ha podido modificar, intente de nuevo.'
+                    })
+                  } else {
+                    if(resp == "Rebaja invalida"){
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Rebaja inválida',
+                        text: 'El producto no se ha podido modificar, intente de nuevo.'
+                      })
+                    }
+                  }
+                }
+              } 
+              catch(error: any){
+                Swal.fire({
+                  icon: 'error',
+                  text: 'El producto no se ha podido modificar, intente de nuevo.'
+                })
+              }
+            }
+        });
+      }
+    }
   }
 
   const { width, height } = useWindowDimensions()

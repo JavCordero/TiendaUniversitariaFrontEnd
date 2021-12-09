@@ -47,29 +47,42 @@ export const FormAddUsuario = (): JSX.Element => {
   };  
 
   const onSubmit = async (values: FormValues) => {
-    try{
-    const resp = await registerUserAPI(values.nombre, values.apellido, values.email, values.contrasenia, values.confirmContrasenia, values.rol);
-    console.log(resp);
-
-      if(resp.message == "Creado exitosamente"){
-        Swal.fire({
-          text: 'Se ha registrado correctamente',
-          title: values.nombre.charAt(0).toUpperCase() + values.nombre.slice(1) + " " + values.apellido.charAt(0).toUpperCase() + values.apellido.slice(1),
-          icon: 'success'
-        }) 
-        .then(function() {
-          window.location.href = "/Tienda/Perfil";
-      });
-
-      } else {
-        Swal.fire({
-          icon: 'error',
-          text: 'El correo electrónico ya existe, intente nuevamente.'
-        })
-      }
-    } catch(error: any){
-
-    }
+    Swal.fire({
+      title: 'Confirmar Usuario',
+      text: `¿Está seguro que quiere agregar al usuario?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí!',
+      cancelButtonText: '¡No!',
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        try{
+          const resp = await registerUserAPI(values.nombre, values.apellido, values.email, values.contrasenia, values.confirmContrasenia, values.rol);
+          console.log(resp);
+    
+          if(resp.message == "Creado exitosamente"){
+            Swal.fire({
+              text: 'Se ha registrado correctamente',
+              title: values.nombre.charAt(0).toUpperCase() + values.nombre.slice(1) + " " + values.apellido.charAt(0).toUpperCase() + values.apellido.slice(1),
+              icon: 'success'
+            }) 
+            .then(function() {
+              window.location.href = "/Tienda/Perfil";
+          });
+    
+          } else {
+            Swal.fire({
+              icon: 'error',
+              text: 'El correo electrónico ya existe, intente nuevamente.'
+            })
+          }
+        } catch(error: any){
+    
+        }
+      },
+    });
   }
 
   const { width, height } = useWindowDimensions()

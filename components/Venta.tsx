@@ -138,50 +138,63 @@ export const Venta = (): JSX.Element =>{
 
     async function realizarVenta(){
 
-        const resp = await registrarVenta(productos);
-        let productosMalos = false;
-        let stringMalito = "Se detectaron inconsistencias en el stock de los siguientes productos: "
-        let stringBueno = "Estos son los productos que se pudieron registrar en la venta";
+        Swal.fire({
+            title: 'Confirmar Usuario',
+            text: `¿Está seguro que quiere agregar al usuario?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí!',
+            cancelButtonText: '¡No!',
+            showLoaderOnConfirm: true,
+            preConfirm: async () => {
+                const resp = await registrarVenta(productos);
+                let productosMalos = false;
+                let stringMalito = "Se detectaron inconsistencias en el stock de los siguientes productos:"
+                let stringBueno = "Estos son los productos que se pudieron registrar en la venta:";
+        
+                console.log(resp);
+                sessionStorage.clear();
+        
+                resp.forEach((respuesta : any) => {
+                    const respuestaNegativa = respuesta.message.includes("No");
+                    if(respuestaNegativa){
+                        productosMalos = true;
+                        stringMalito = `${stringMalito} ${respuesta.nombre}. `;
+                    }
+                    else{
+                        stringBueno = `${stringBueno} ${respuesta.nombre}. `;
+                    }
+                });
 
-        console.log(resp);
-        sessionStorage.clear();
-
-        resp.forEach((respuesta : any) => {
-            const respuestaNegativa = respuesta.message.includes("No");
-            if(respuestaNegativa){
-                productosMalos = true;
-                stringMalito = `${stringMalito} ${respuesta.nombre}. `;
-            }
-            else{
-                stringBueno = `${stringBueno} ${respuesta.nombre}. `;
+                if(productosMalos){
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Se detectaron inconsistencias',
+                        text: stringMalito
+                    }).then(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Venta Exitosa',
+                            text: stringBueno
+                        }).then(() => {
+                            Router.push("/Tienda/Perfil");
+                        });
+                    });
+                }
+                
+                else{
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Venta Exitosa',
+                        text: 'La venta se ha realizado con éxito.'
+                    }).then(() => {
+                        Router.push("/Tienda/Perfil");
+                    });
+                }
             }
         });
-        
-        if(productosMalos){
-            Swal.fire({
-                icon: 'warning',
-                title: 'Se detectaron inconsistencias',
-                text: stringMalito
-            }).then(() => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Venta Exitosa',
-                    text: stringBueno
-                }).then(() => {
-                    Router.push("/Tienda/Perfil");
-                });
-            });
-        }
-        
-        else{
-            Swal.fire({
-                icon: 'success',
-                title: 'Venta Exitosa',
-                text: 'La venta se ha realizado con éxito.'
-            }).then(() => {
-                Router.push("/Tienda/Perfil");
-            });
-        }
         
     }
 
@@ -317,7 +330,7 @@ export const Venta = (): JSX.Element =>{
                                 </button>
                             </div>
                                 <div style={width > limite? {width:'300px', height:'50px', display:'flex', alignItems:'center', position:'absolute', right:'0', justifyContent:'center'}:{width:'100%', height:'50px', display:'flex', alignItems:'center', justifyContent:'center'}}>
-                                    <button type="submit" onClick={() => realizarVenta()} className="btn btn-primary btn-block btn-lg" id="boton_lista" style={{height:'40px', width:'260px', display:'flex', alignItems:'center', justifyContent:'center'}}>     
+                                    <button type="submit" onClick={() => realizarVenta()} className="btn btn-primary btn-block btn-lg" id="boton_lista" style={{height:'40px', width:'260px', display: sessionStorage.length == 0 ? "none" : "flex", alignItems:'center', justifyContent:'center'}}>     
                                         <h2 id="text_lista" style={{color:'white', fontWeight:'bold'}}>
                                          Realizar Venta
                                         </h2>

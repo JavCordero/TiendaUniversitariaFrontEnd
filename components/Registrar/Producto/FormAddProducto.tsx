@@ -47,33 +47,47 @@ export const FormAddProducto = (): JSX.Element => {
   };  
 
   const onSubmit = async (values: FormValues) => {
-    try{
-    const resp = await registerProductAPI(values.nombre, values.descripcion,  values.precio, values.stockActual, values.stockCritico, values.categoria);
-    console.log(values);
 
-      if(resp.message == "Creado exitosamente"){
-        
-        Swal.fire({
-          text: 'El producto se ha registrado correctamente.',
-          title: values.nombre.charAt(0).toUpperCase() + values.nombre.slice(1),
-          icon: 'success'
-        })
-        .then(function() {
-          window.location.href = "/Tienda/ListaProductos";
-      });
-
-      } else {
-        if(resp.message == "Error de validacion"){
-          Swal.fire({
-            icon: 'error',
-            text: 'El producto no se ha podido registrar, intente de nuevo.'
-          })
-        }
-        
-      }
-    } catch(error: any){
-
-    }
+    Swal.fire({
+      title: 'Confirmar Producto',
+      text: `¿Está seguro que quiere agregar el producto ${values.nombre}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí!',
+      cancelButtonText: '¡No!',
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        try{
+          const resp = await registerProductAPI(values.nombre, values.descripcion,  values.precio, values.stockActual, values.stockCritico, values.categoria);
+          console.log(values);
+      
+            if(resp.message == "Creado exitosamente"){
+              
+              Swal.fire({
+                text: 'El producto se ha registrado correctamente.',
+                title: values.nombre.charAt(0).toUpperCase() + values.nombre.slice(1),
+                icon: 'success'
+              })
+              .then(function() {
+                window.location.href = "/Tienda/ListaProductos";
+            });
+      
+            } else {
+              if(resp.message == "Error de validacion"){
+                Swal.fire({
+                  icon: 'error',
+                  text: 'El producto no se ha podido registrar, intente de nuevo.'
+                })
+              }
+              
+            }
+          } catch(error: any){
+      
+          }
+      },
+    });
   }
 
   const { width, height } = useWindowDimensions()
@@ -165,7 +179,7 @@ export const FormAddProducto = (): JSX.Element => {
                 </div>
                 <div className={(width > limite)? "container-fluid" : "col"} id={(width > limite)? "contenedor_descripcion" : "register_product_responsive"}>
                   <div className="col-12">
-                    <label htmlFor="descripcion" id="text">Descripción</label>
+                    <label htmlFor="descripcion" id="text">Descripción (Opcional)</label>
                     <Field name="descripcion" as="textarea" className="form-control rounded-3" rows="3" placeholder="Ingrese una descripción del producto"></Field>
                     <div id="fila_unidad_p">  
                       <div>
