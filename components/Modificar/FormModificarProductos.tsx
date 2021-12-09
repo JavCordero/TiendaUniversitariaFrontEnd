@@ -55,18 +55,18 @@ export const FormModificarProductos = (): JSX.Element => {
   const onSubmit = async (values: FormValues) => {
 
     const select = (document.getElementById("exampleFormControlSelect1") as HTMLSelectElement).value;
-
-    if(select == "Seleccione una opción"){
+    console.log(select);
+    if(select === "0"){
       Swal.fire({
         icon: 'error',
         text: 'No ha ingresado ninguna opción, intente de nuevo.'
       })
     }
     else{
-      if(rebajaMerma == 0 && aumento == 0){
+      if(aumento == 0 && rebajaMerma == 0 ){
         Swal.fire({
           icon: 'warning',
-          text: 'La cantidad a aumentar/disminuir es 0.'
+          text: 'La cantidad a disminuir/aumentar es 0.'
         })
       }
       else{

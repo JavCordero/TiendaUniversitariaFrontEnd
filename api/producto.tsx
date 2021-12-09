@@ -52,13 +52,14 @@ export const updateProducto= async(id: string, rebajaMerma: string, aumento: str
    // Obtiene el producto
    const producto = await getProductosEspecifico(id);
    var cantidadActual = producto.producto.cantidad;
+   var cantidadModificar = 0;
 
    if(rebajaMerma == "0" && aumento != "0"){
       cantidadActual = cantidadActual + parseInt(aumento);
+      cantidadModificar = parseInt(aumento);
    }
    if(rebajaMerma != "0" && aumento == "0"){
       var rebaja = cantidadActual - parseInt(rebajaMerma);
-
       if (rebaja < 0){
          return "Rebaja invalida";
       }else{
@@ -66,11 +67,12 @@ export const updateProducto= async(id: string, rebajaMerma: string, aumento: str
       }
    }
    console.log()
-   const url= `${API_PATH}/productos/${id}`;
+   const url= `${API_PATH}/productos/${id}/${cantidadModificar}`;
    const params= {
       method: "PUT",
       headers: {
-         "Content-Type": "application/json"
+         "Content-Type": "application/json",
+         Authorization: `Bearer ${getToken()}`
       },
       body: JSON.stringify({
          nombre: producto.producto.nombre,
