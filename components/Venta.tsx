@@ -315,6 +315,25 @@ export const Venta = (): JSX.Element =>{
                             })
                         }
 
+                    {productos.length === 0 &&
+                        <div style={{marginLeft:'15px', marginRight:'15px'}}>
+                            <div className="container-fluid" id="contenedor_lista" style={{height:'100px', width:'1080px'}}>
+                                <div className="row" id="fila_lista" style={{borderBottomLeftRadius:'15px', borderBottomRightRadius:'15px', borderBottom:'2px solid #425563'}}>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    {productos.length === 0 &&                    
+                        <div className="container-fluid" id="contenedor_lista" style={{height:'100px', width:'100%', maxWidth:'1110px', marginLeft:'0', marginRight:'0'}}>
+                            <div style={{height:'100px', width:((width * 0.7)), position:'relative', marginLeft: (width*0.15) + scrollPosition - (55/2), marginRight: (width*0.15) + 55, display:'flex', alignItems:'center', justifyContent:'center'}}>
+                                <h2 id="text_lista" style={{marginBottom: '200px'}}>
+                                    No se encuentran resultados
+                                </h2>
+                            </div>
+                        </div>
+                    }
+
                     <div style={{height:'50px'}}>
 
                     </div>

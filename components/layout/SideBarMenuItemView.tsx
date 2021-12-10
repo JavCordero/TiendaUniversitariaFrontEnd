@@ -15,12 +15,17 @@ export default function SideBarMenuItemView({item, isOpen,}: SideBarMenuItemView
     const handleLogout= async (e: any)=> {
         await logout();
         Router.push("/");
-     }
+    }
+
+    const handleChange = async(e: any)=> {
+        Router.push(item.url);
+    }
+
     if(item.rol.includes(user.rol)){
         if(item.type == "link"){
             return (
                 <div className="SideBarMenuItemView">
-                    <a href={item.url}>
+                    <a onClick={handleChange}>
                         <div className={classNames('ItemContent', isOpen? '': 'collapsed')}>
                             <div className="icon">
                                 <item.icon size="26" />
