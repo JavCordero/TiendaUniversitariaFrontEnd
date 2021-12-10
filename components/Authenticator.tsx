@@ -11,33 +11,54 @@ export const Authenticator= ({children}: any)=> {
    const {user, isAuthenticated}= useAuth(); 
    const Router = useRouter();
 
-   let isProtected= children.props.protected;
-   let permissions= children.props.permissions;
-
    if(children.type.name=="ModificarProducto"){
-      isProtected= true;
-      permissions= ["administrador","vendedor"];
-   }
-
-   if(isProtected){ // pagina privada
-      if(isAuthenticated()){ // credenciales de usuario
-         if(permissions.includes(user.rol)){ // permisos suficientes
-            return(
-            <Header>
-               {children}
-            </Header>);
-         }else{ // permisos insuficientes
-            Router.push("/Tienda/Perfil");
+      const isProtected= true;
+      const permissions= ["administrador"];
+      if(isProtected){ // pagina privada
+         if(isAuthenticated()){ // credenciales de usuario
+            if(permissions.includes(user.rol)){ // permisos suficientes
+               return(
+               <Header>
+                  {children}
+               </Header>);
+            }else{ // permisos insuficientes
+               Router.push("/Tienda/Perfil");
+            }
+         }else{ // sin credenciales de usuario
+            Router.push("/");
          }
-      }else{ // sin credenciales de usuario
-         Router.push("/");
+      }else{ //pagina publica
+         return(
+            <Header2>
+               {children}
+            </Header2>);
       }
-   }else{ //pagina publica
-      return(
-         <Header2>
-            {children}
-         </Header2>);
+      return null;
+      // return <><Loading/><Header2></Header2></>
+   }else{
+      const isProtected= children.props.protected;
+      const permissions= children.props.permissions;
+   
+      if(isProtected){ // pagina privada
+         if(isAuthenticated()){ // credenciales de usuario
+            if(permissions.includes(user.rol)){ // permisos suficientes
+               return(
+               <Header>
+                  {children}
+               </Header>);
+            }else{ // permisos insuficientes
+               Router.push("/Tienda/Perfil");
+            }
+         }else{ // sin credenciales de usuario
+            Router.push("/");
+         }
+      }else{ //pagina publica
+         return(
+            <Header2>
+               {children}
+            </Header2>);
+      }
+      return null;
+      // return <><Loading/><Header2></Header2></>
    }
-   return null;
-   // return <><Loading/><Header2></Header2></>
 }
