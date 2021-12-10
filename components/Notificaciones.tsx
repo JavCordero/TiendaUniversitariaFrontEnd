@@ -73,15 +73,15 @@ export const Notificaciones = () =>{
     return(
         <div className="container-fluid" id="contenedor" style={{width:width, height: height - 100, marginLeft:'0'}}>
             <div className="col" style={{paddingLeft:'0', paddingRight:'0', paddingTop:'50px'}}>
-            <div className="container-fluid" id="contenedor_lista" style={{height:'50px', marginTop:'50px', width:'1110px', display:'flex', alignItems:'center', justifyContent:'center'}}> 
-                <div className="row justify-content-center" style={{width:'1080px', height:'50px', display:'flex', marginLeft:'15px', marginRight:'15px', backgroundColor:'#425563', borderTopLeftRadius:'15px', borderTopRightRadius:'15px'}}>
-                    <div id="header_lista" style={{width:'180px', height:'50px'}}>
-                        <h2>
-                            Notificaciones
-                        </h2>
+                <div className="container-fluid" id="contenedor_lista" style={{height:'50px', marginTop:'50px', width:'1110px', display:'flex', alignItems:'center', justifyContent:'center'}}> 
+                    <div className="row justify-content-center" style={{width:'1080px', height:'50px', display:'flex', marginLeft:'15px', marginRight:'15px', backgroundColor:'#425563', borderTopLeftRadius:'15px', borderTopRightRadius:'15px'}}>
+                        <div id="header_lista" style={{width:'180px', height:'50px'}}>
+                            <h2>
+                                Notificaciones
+                            </h2>
+                        </div>
                     </div>
                 </div>
-            </div>
                 {
                     notificaciones.map((notificacion) => {
                         return(
@@ -104,6 +104,24 @@ export const Notificaciones = () =>{
 
                         );
                     })
+                }
+                {notificaciones.length === 0 &&
+                    <div style={{marginLeft:'15px', marginRight:'15px'}}>
+                        <div className="container-fluid" id="contenedor_lista" style={{height:'100px', width:'1080px'}}>
+                            <div className="row" id="fila_lista" style={{borderBottomLeftRadius:'15px', borderBottomRightRadius:'15px', borderBottom:'2px solid #425563'}}>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                {notificaciones.length === 0 &&                    
+                    <div className="container-fluid" id="contenedor_lista" style={{height:'100px', width:'100%', maxWidth:'1110px', marginLeft:'0', marginRight:'0'}}>
+                        <div style={{height:'100px', width:((width * 0.7)), position:'relative', marginLeft: (width*0.15) + scrollPosition - (55/2), marginRight: (width*0.15) + 55, display:'flex', alignItems:'center', justifyContent:'center'}}>
+                            <h2 id="text_lista" style={{marginBottom: '200px'}}>
+                                No hay notificaciones pendientes
+                             </h2>
+                        </div>
+                    </div>
                 }
             </div>
         </div>

@@ -1,5 +1,4 @@
 import React, { useState,useEffect } from "react";
-import router from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -9,6 +8,12 @@ import { useRouter } from 'next/router';
 import {  getProductosEspecifico, updateProducto } from "../../api/producto";
 import { TextField } from "@material-ui/core";
 import { BsSearch } from "react-icons/bs";
+
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Head from 'next/head';
+import { NextPage } from 'next';
 
 interface FormValues {
   nombre: string;
@@ -39,7 +44,29 @@ function useWindowDimensions() {
   }
 }
 
+const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: 540,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    
+  },
+  typography: {
+    fontFamily: "Roboto",
+    fontSize: "22px",
+    marginTop: 10
+    },
+  mt: {
+    marginTop: 10
+  }
+})
+
 export const FormModificarProductos = (): JSX.Element => {
+  const Router = useRouter();
+
   const initialValues: FormValues = {
     nombre: "",
     precio: "",
@@ -92,7 +119,7 @@ export const FormModificarProductos = (): JSX.Element => {
                     icon: 'success'
                   })
                   .then(function() {
-                    window.location.href = "/Tienda/ListaProductos";
+                    Router.push("/Tienda/ListaProductos");
                 });
           
                 } else {
@@ -134,19 +161,24 @@ export const FormModificarProductos = (): JSX.Element => {
   const [precio, setPrecio] = useState();
   const [stock_critico, setStockCritico] = useState();
   const [codigo_barra, setCodigoBarra] = useState();
-  const [codigo_interno, setCodigoInterno] = useState();
+  const [codigo_interno, setCodigoInterno] = useState("");
   const router = useRouter();
 
   const fetchProducts = async () => {
     const codigoInterno = String(router.query.codigo_interno);
     const data = await getProductosEspecifico(codigoInterno);
-    setNombre(data.producto.nombre);
-    setStockActual(data.producto.cantidad);
-    setDescripcion(data.producto.descripcion);
-    setPrecio(data.producto.precio);
-    setStockCritico(data.producto.stock_critico);
-    setCodigoBarra(data.producto.codigo_barra);
-    setCodigoInterno(data.producto.codigo_interno);
+    if(data.error != "Producto no encontrado"){
+      setNombre(data.producto.nombre);
+      setStockActual(data.producto.cantidad);
+      setDescripcion(data.producto.descripcion);
+      setPrecio(data.producto.precio);
+      setStockCritico(data.producto.stock_critico);
+      setCodigoBarra(data.producto.codigo_barra);
+      setCodigoInterno(data.producto.codigo_interno);
+    }
+    else {
+      setCodigoInterno("no");
+    }
 
   }
   
@@ -163,10 +195,19 @@ export const FormModificarProductos = (): JSX.Element => {
    setAumento(0);
    setSelect(value);
    console.log(value);
-  }
+  };
+
+  const botonVolver = () => {
+    Router.push("/Tienda/Perfil");
+  };
+
+  const codigo = router.query.codigo_interno;
+
+  const classes = useStyles();
 
   return (
     <>
+    { codigo === codigo_interno &&
       <div className="container-fluid" id="contenedor" style={(width > limite)? (height > 850)? {height: height - 100, display:'flex', alignItems:'center'}: {height: 750, display:'flex', alignItems:'center'} : {} }>
         <section className="jumbotron" id={(width > limite)? "register2" : "register2_r2"} >
           <div className="col" id="columna">
@@ -299,6 +340,16 @@ export const FormModificarProductos = (): JSX.Element => {
           </div>         
         </section>      
       </div>
+    }
+    { codigo_interno === "no" &&
+      <Box className={classes.root}>
+      <Typography style={{ fontWeight: 600 , fontFamily: "Roboto",fontSize: "100px"}}> 404 </ Typography> 
+      <Typography className={classes.typography}>  La página que no está buscando no existe.</Typography>
+      <Typography className={classes.mt}>
+        <button type="submit" onClick={botonVolver} className="btn btn-block mt-2" id="boton_registrar">Volver al inicio</button>
+      </Typography>
+    </Box>
+    }
     </>
   );
 };

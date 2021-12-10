@@ -1,5 +1,5 @@
 import React from "react";
-import router from "next/router";
+import { useRouter} from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -37,6 +37,8 @@ function useWindowDimensions() {
 }
 
 export const FormAddUsuario = (): JSX.Element => {
+  const Router = useRouter();
+
   const initialValues: FormValues = {
     nombre: "",
     apellido: "",
@@ -69,7 +71,7 @@ export const FormAddUsuario = (): JSX.Element => {
               icon: 'success'
             }) 
             .then(function() {
-              window.location.href = "/Tienda/Perfil";
+              Router.push("/Tienda/Perfil");
           });
     
           } else {
