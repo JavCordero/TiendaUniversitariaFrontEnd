@@ -11,7 +11,7 @@ export const Authenticator= ({children}: any)=> {
    const {user, isAuthenticated}= useAuth(); 
    const Router = useRouter();
 
-   if(children.type.name=="ModificarProducto"){
+   if(Router.pathname=="/Tienda/ModificarProductos/[codigo_interno]"){
       const isProtected= true;
       const permissions= ["administrador"];
       if(isProtected){ // pagina privada
