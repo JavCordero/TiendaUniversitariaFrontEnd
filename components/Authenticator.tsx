@@ -13,7 +13,7 @@ export const Authenticator= ({children}: any)=> {
 
    if(Router.pathname=="/Tienda/ModificarProductos/[codigo_interno]"){
       const isProtected= true;
-      const permissions= ["administrador"];
+      const permissions= ["administrador","vendedor"];
       if(isProtected){ // pagina privada
          if(isAuthenticated()){ // credenciales de usuario
             if(permissions.includes(user.rol)){ // permisos suficientes

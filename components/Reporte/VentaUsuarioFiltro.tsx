@@ -76,7 +76,7 @@ const VentaUsuarioFiltro = ({ width, height, scrollPosition, limite, filtroValor
                     </div>
                     <div id="elementos_lista" style={{ width: '180px' }}>
                         <h2 id="text_lista">
-                            {tabla[i]?.precio}
+                            {tabla[i]?.precio * tabla[i]?.cantidad}
                         </h2>
                     </div>
                     <div id="elementos_lista" style={{ width: '178px' }}>

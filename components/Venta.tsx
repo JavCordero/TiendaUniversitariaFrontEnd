@@ -139,8 +139,8 @@ export const Venta = (): JSX.Element =>{
     async function realizarVenta(){
 
         Swal.fire({
-            title: 'Confirmar Usuario',
-            text: `¿Está seguro que quiere agregar al usuario?`,
+            title: 'Confirmar Venta',
+            text: `¿Está seguro que quiere realizar venta?`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
